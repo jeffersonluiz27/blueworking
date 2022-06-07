@@ -4,8 +4,8 @@ import Router from './router';
 
 function App() {
 	return (
-		<div className="continer">
-			<h1>Blueworking</h1>
+		<div className="container">
+			<h1 className="logo">Blueworking</h1>
 			<div className="content">
 				<Router />
 			</div>
