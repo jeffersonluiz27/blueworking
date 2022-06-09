@@ -1,16 +1,26 @@
 import { SyntheticEvent, useState } from 'react';
+import { user } from '../../services/user';
+import { useNavigate } from 'react-router-dom';
 
 function Home() {
-	const [email, setemail] = useState('');
+	const [email, setEmail] = useState('');
+	const navigate = useNavigate();
 
-	const handleSubmit = (evento: SyntheticEvent) => {
+	const handleSubmit = async (evento: SyntheticEvent) => {
 		evento.preventDefault();
-		console.log(evento);
+		const response = await user.auth(email);
+
+		console.log(response);
+		const { _id } = response.data;
+
+		localStorage.setItem('user', _id);
+
+		navigate('/dashboard');
 	};
 
-	const onChangeInput = (event: any) => {
-		setemail(event.target.value);
-	};
+	/* const onChangeInput = (event: any) => {
+		setEmail(event.target.value);
+	}; */
 
 	return (
 		<>
@@ -25,7 +35,7 @@ function Home() {
 					name="email"
 					id="email"
 					placeholder="Informe seu melhor e-mail"
-					onChange={onChangeInput}
+					onChange={(event) => setEmail(event.target.value)}
 					required
 					autoComplete="off"
 				/>
