@@ -1,8 +1,9 @@
 import './style.css';
 import { dashboard } from '../../services/dashboard';
+import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
-type Response = {
+type Spot = {
 	_id: string;
 	thumbnail_url: string;
 	techs: string[];
@@ -11,11 +12,7 @@ type Response = {
 };
 
 const Dashboard = () => {
-	const [spots, setSpots] = useState<Response[]>([]);
-
-	useEffect(() => {
-		loadSpots();
-	}, []);
+	const [spots, setSpots] = useState<Spot[]>([]);
 
 	const loadSpots = async () => {
 		const user_id = localStorage.getItem('user');
@@ -25,6 +22,10 @@ const Dashboard = () => {
 			setSpots(response.data);
 		}
 	};
+
+	useEffect(() => {
+		loadSpots();
+	}, []);
 
 	return (
 		<>
@@ -50,7 +51,9 @@ const Dashboard = () => {
 					</li>
 				))}
 			</ul>
-			<button className="btn">Cadastrar novo spot</button>
+			<Link to={'/new'}>
+				<button className="btn">Cadastrar novo spot</button>
+			</Link>
 		</>
 	);
 };

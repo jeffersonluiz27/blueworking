@@ -42,7 +42,6 @@ function Home() {
 				<button type="submit" className="btn">
 					Entrar
 				</button>
-				<p>{email}</p>
 			</form>
 		</>
 	);
